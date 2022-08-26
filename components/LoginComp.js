@@ -44,11 +44,8 @@ const LoginComp = () => {
 							type='text'
 							error={errors.LoginInEmail}
 						/>
-						<Typography className={styles.errText}>
-							{errors.LoginInEmail?.message}
-						</Typography>
+						<div className={styles.errText}>{errors.LoginInEmail?.message}</div>
 					</Stack>
-
 					<Stack direction='column' sx={{ width: '100%' }}>
 						<label htmlFor='SignInPassword'>Hasło:</label>
 						<InputComp
@@ -63,9 +60,9 @@ const LoginComp = () => {
 							type='password'
 							error={errors.SignInPassword}
 						/>
-						<Typography className={styles.errText}>
+						<div className={styles.errText}>
 							{errors.SignInPassword?.message}
-						</Typography>
+						</div>
 					</Stack>
 					<Box>Nie pamiętasz hasła?</Box>
 					<input className={styles.submitInput} type='submit' value='Zaloguj' />

@@ -42,9 +42,7 @@ const SignComp = () => {
 							type='text'
 							error={errors.SignInEmail}
 						/>
-						<Typography className={styles.errText}>
-							{errors.SignInEmail?.message}
-						</Typography>
+						<div className={styles.errText}>{errors.SignInEmail?.message}</div>
 					</Stack>
 					<Stack direction='column' sx={{ width: '100%' }}>
 						<label htmlFor='SignInPassword'>Hasło:</label>
@@ -60,9 +58,9 @@ const SignComp = () => {
 							type='password'
 							error={errors.SignInPassword}
 						/>
-						<Typography className={styles.errText}>
+						<div className={styles.errText}>
 							{errors.SignInPassword?.message}
-						</Typography>
+						</div>
 					</Stack>
 
 					<Typography fontSize={10}>
@@ -101,9 +99,9 @@ const SignComp = () => {
 							żądanie.
 						</Typography>
 					</Stack>
-					<Typography className={styles.errText}>
+					<div className={styles.errText}>
 						{errors.RegistrationTerms?.message}
-					</Typography>
+					</div>
 					<input
 						className={styles.submitInput}
 						type='submit'
