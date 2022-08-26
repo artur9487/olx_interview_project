@@ -1,0 +1,87 @@
+/** @format */
+$innerWidth: 700px;
+$innerHeight: 700px;
+$outerWidth: 800px;
+$outerHeight: 800px;
+
+@mixin innerCircleTheme {
+	opacity: 1;
+	z-index: 2;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-radius: 1000px;
+	background: blue;
+	transform: translate(-50%, -50%);
+}
+
+@mixin outerCircleTheme {
+	opacity: 1;
+	z-index: 1;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-radius: 1000px;
+	transform: translate(-50%, -50%);
+	background: rgb(106, 106, 230);
+	transform: translate(-50%, -50%);
+}
+
+.innerCircle {
+	height: $innerHeight;
+	width: $innerWidth;
+	@include innerCircleTheme;
+}
+
+.outerCircle {
+	height: $outerHeight;
+	width: $outerWidth;
+	@include outerCircleTheme;
+}
+
+.innerCircleAnn {
+	@include innerCircleTheme;
+	animation-name: innerCircleAnimation;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+}
+
+.outerCircleAnn {
+	@include outerCircleTheme;
+	animation-name: outerCircleAnimation;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes innerCircleAnimation {
+	0% {
+		height: 0px;
+		width: 0px;
+	}
+	80% {
+		height: 1100px;
+		width: 1100px;
+		opacity: 0.7;
+	}
+	100% {
+		height: $innerHeight;
+		width: $innerWidth;
+		opacity: 1;
+	}
+}
+@keyframes outerCircleAnimation {
+	0% {
+		height: 0px;
+		width: 0px;
+	}
+	80% {
+		height: 1300px;
+		width: 1300px;
+		opacity: 0.7;
+	}
+	100% {
+		height: $outerHeight;
+		width: $outerWidth;
+		opacity: 1;
+	}
+}
