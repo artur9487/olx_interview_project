@@ -5,21 +5,27 @@ import SocialMediaComp from './SocialMediaComp';
 import styles from '/styles/Style.module.scss';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { setUser } from '../redux/actions';
+import { useDispatch } from 'react-redux';
 
 const SignComp = () => {
 	const router = useRouter();
+	const dispatch = useDispatch();
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { errors }
 	} = useForm();
 
 	const onSubmit = (data) => {
 		router.push({
-			pathname: '/SuccesPageSignIn',
+			pathname: '/succesPage/SuccesPageSignIn',
 			query: { user: data.SignInEmail }
 		});
+		dispatch(setUser(data.SignInEmail));
 	};
+
 	return (
 		<Box sx={{ p: 3 }}>
 			<SocialMediaComp />

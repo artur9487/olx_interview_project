@@ -5,9 +5,12 @@ import SocialMediaComp from './SocialMediaComp';
 import styles from '/styles/Style.module.scss';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/actions';
 
 const LoginComp = () => {
 	const router = useRouter();
+	const dispatch = useDispatch();
 
 	const {
 		register,
@@ -18,10 +21,12 @@ const LoginComp = () => {
 
 	const onSubmit = (data) => {
 		router.push({
-			pathname: '/SuccesPageLogin',
+			pathname: '/succesPage/SuccesPageLogin',
 			query: { user: data.LoginInEmail }
 		});
+		dispatch(setUser(data.LoginInEmail));
 	};
+
 	return (
 		<Box sx={{ px: 3, py: 3 }}>
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
