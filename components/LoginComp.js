@@ -20,11 +20,14 @@ const LoginComp = () => {
 	} = useForm();
 
 	const onSubmit = (data) => {
+		const { LoginInEmail } = data;
+
+		dispatch(setUser(LoginInEmail));
+
 		router.push({
 			pathname: '/succesPage/SuccesPageLogin',
-			query: { user: data.LoginInEmail }
+			query: { user: LoginInEmail }
 		});
-		dispatch(setUser(data.LoginInEmail));
 	};
 
 	return (

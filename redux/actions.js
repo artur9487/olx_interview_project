@@ -1,20 +1,24 @@
 /** @format */ import {
-	SET_CATEGORY,
+	FILTER_PRODUCT,
 	SET_FILTER_CREDENTIALS,
 	SET_USER
 } from './types';
 
-export const setFilterCredentials = (lowCost, upperCost, specificValue) => ({
-	TYPE: SET_FILTER_CREDENTIALS,
-	payload: { lowCost, upperCost, specificValue }
+export const setFilterCredentials = (
+	lowCost,
+	upperCost,
+	specificValue,
+	category
+) => ({
+	type: SET_FILTER_CREDENTIALS,
+	payload: { lowCost, upperCost, specificValue, category }
 });
 
 export const setUser = (user) => ({
-	TYPE: SET_USER,
+	type: SET_USER,
 	payload: user
 });
 
-export const setCategory = (category) => ({
-	TYPE: SET_CATEGORY,
-	payload: category
-});
+export const filterProducts = {
+	type: FILTER_PRODUCT
+};

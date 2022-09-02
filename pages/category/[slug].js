@@ -1,23 +1,21 @@
 /** @format */
-import { Card, Typography, Stack, Box } from '@mui/material';
+import { Card, Typography, Stack, Box, Button } from '@mui/material';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setCategory, setFilterCredentials } from '../../redux/actions';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const obj = [
-	{ type: 'Motoryzacja', values: ['saab,volvo'], choosingValue: 'auto' },
+	{ type: 'Motoryzacja', values: ['saab,volvo'] },
 	{
-		type: 'Nieruchomości',
-		values: ['poniżej 30m2', 'powyżej 30m2'],
-		choosingValue: 'mieszkanie'
+		type: 'Nieruchomosci',
+		values: ['ponizej 30m2', 'powyzej 30m2']
 	},
 	{
 		type: 'Elektronika',
-		values: ['komórka', 'laptop'],
-		choosingValue: 'sprzęt'
+		values: ['komorka', 'laptop']
 	}
 ];
 
@@ -25,6 +23,8 @@ const CategoryPage = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const path = router.asPath.slice(10);
+	const [costError, setCostError] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -32,14 +32,18 @@ const CategoryPage = () => {
 		formState: { errors }
 	} = useForm();
 
-	useEffect(() => {
-		dispatch(setCategory(path));
-	}, [dispatch]);
-
 	const handleSubmiter = (data) => {
 		const { LowCost, UpperCost, SelectOption } = data;
+		if (LowCost > UpperCost) {
+			setCostError(true);
+			return;
+		} else {
+			setCostError(false);
+		}
 		router.push('/finalProductsPage');
-		return dispatch(setFilterCredentials(LowCost, UpperCost, SelectOption));
+		return dispatch(
+			setFilterCredentials(LowCost, UpperCost, SelectOption, path)
+		);
 	};
 
 	return (
@@ -61,7 +65,7 @@ const CategoryPage = () => {
 								type='number'
 								placeholder='Od'
 							/>
-							{errors.LowCost?.message}
+							<p>{errors.LowCost?.message}</p>
 							<input
 								{...register('UpperCost', {
 									required: { value: true, message: 'Position is required' },
@@ -73,15 +77,17 @@ const CategoryPage = () => {
 								type='number'
 								placeholder='Do'
 							/>
-							{errors.UpperCost?.message}
+							<p>{errors.UpperCost?.message}</p>
 						</Stack>
 					</Stack>
 					<Stack direction='column'>
 						{obj
-							.filter((item) => item.type === path)
-							.map((item2) => {
+							.filter((item) => {
+								return item.type === path;
+							})
+							.map((item2, indx) => {
 								return (
-									<>
+									<Box key={indx}>
 										<label htmlFor='cost'>Wybierz {item2.choosingValue}</label>
 										<select
 											{...register('SelectOption', {
@@ -89,20 +95,24 @@ const CategoryPage = () => {
 													value: true,
 													message: 'Position is required'
 												}
-											})}
-											name='cars'
-											id='cars'>
-											<option value={item2.values[0]}>Volvo</option>
-											<option value={item2.values[1]}>Saab</option>
+											})}>
+											<option>{item2.values[0]}</option>
+											<option>{item2.values[1]}</option>
 										</select>
-									</>
+									</Box>
 								);
 							})}
-						{errors.SelectOption?.message}
+						<p>{errors.SelectOption?.message}</p>
 					</Stack>
-					<input type='button' value='Wyszukaj propozycje' />
+					{costError ? (
+						<Typography>
+							Wartość do nie może być niższa od wartości od{' '}
+						</Typography>
+					) : null}
+					<input type='submit' value='Wyszukaj propozycje' />
 				</Stack>
 			</form>
+			<Button onClick={() => router.back()}>Powrót</Button>
 		</Layout>
 	);
 };

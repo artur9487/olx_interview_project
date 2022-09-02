@@ -19,11 +19,12 @@ const SignComp = () => {
 	} = useForm();
 
 	const onSubmit = (data) => {
+		const { SignInEmail } = data;
+		dispatch(setUser(SignInEmail));
 		router.push({
 			pathname: '/succesPage/SuccesPageSignIn',
-			query: { user: data.SignInEmail }
+			query: { user: SignInEmail }
 		});
-		dispatch(setUser(data.SignInEmail));
 	};
 
 	return (

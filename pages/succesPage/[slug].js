@@ -13,7 +13,7 @@ const categories = [
 		color: 'rgb(255, 206, 50)'
 	},
 	{
-		type: 'Nieruchomości',
+		type: 'Nieruchomosci',
 		bg: 'https://categories.olxcdn.com/assets/categories/olxpl/nieruchomosci-3-2x.png',
 		color: 'rgb(58, 119, 255)'
 	},
@@ -67,12 +67,12 @@ const ResultPage = () => {
 											height: 100,
 											bgcolor: item.color
 										}}>
-										<Image
+										{/*	<Image
 											src={item.bg}
 											objectFit='cover'
 											layout='fill'
 											alt='detail'
-										/>
+									/>*/}
 									</Box>
 									<Typography
 										component='span'
